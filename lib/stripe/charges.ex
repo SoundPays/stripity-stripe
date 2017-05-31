@@ -291,8 +291,8 @@ defmodule Stripe.Charges do
       {:ok, charge} = Stripe.Charges.refund("charge_id")
 
   """
-  def refund(id) do
-    refund id, Stripe.config_or_env_key
+  def refund(id, params \\ []) do
+    refund id, Stripe.config_or_env_key, params
   end
 
   @doc """
@@ -309,8 +309,8 @@ defmodule Stripe.Charges do
       {:ok, charge} = Stripe.Charges.refund("charge_id", "my_key")
 
   """
-  def refund(id, key) do
-    Stripe.make_request_with_key(:post, "#{@endpoint}/#{id}/refunds", key)
+  def refund(id, key, params) do
+    Stripe.make_request_with_key(:post, "#{@endpoint}/#{id}/refunds", key, params)
     |> Stripe.Util.handle_stripe_response
   end
 
